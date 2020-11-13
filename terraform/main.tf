@@ -5,6 +5,15 @@ provider "aws" {
 resource "aws_instance" "pydoro_server" {
   instance_type = "t2.micro"
   ami           = "ami-244c7a39"
+  user_data = <<EOF
+#!/usr/bin/env bash
+mkdir -p /srv/pydoro
+aws s3 cp s3://pydoro-artifacts/backend/${var.backend-version}.zip /srv/pydoro/dist.zip
+cd /srv/pydoro/
+unzip dist.zip
+pip3 install -r requirements.txt
+python3 main.py
+EOF
 }
 
 resource "aws_s3_bucket" "artifacts" {
