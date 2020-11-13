@@ -8,7 +8,7 @@ resource "aws_instance" "pydoro_server" {
   user_data = <<EOF
 #!/usr/bin/env bash
 mkdir -p /srv/pydoro
-aws s3 cp s3://pydoro-artifacts/backend/${var.backend-version}.zip /srv/pydoro/dist.zip
+aws s3 cp s3://pydoro-artifacts/backend/${var.components_versions.backend_version}.zip /srv/pydoro/dist.zip
 cd /srv/pydoro/
 unzip dist.zip
 pip3 install -r requirements.txt
