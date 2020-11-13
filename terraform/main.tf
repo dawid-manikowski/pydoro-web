@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "pydoro_server" {
   instance_type = "t2.micro"
-  ami           = "ami-e965ba80"
+  ami           = "ami-244c7a39"
 }
 
 resource "aws_s3_bucket" "artifacts" {
