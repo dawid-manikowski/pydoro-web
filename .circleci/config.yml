@@ -32,13 +32,19 @@ jobs:
       - run:
           command: make build
           name: Build
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - dist.zip
   upload:
     docker:
       - image: 'cimg/python:3.8'
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - aws-s3/copy:
-          from: dist.zip
-          to: s3://backend/${CIRCLE_SHA1}.zip
+          from: /tmp/workspace/dist.zip
+          to: s3://pydoro-artifacts/backend/${CIRCLE_SHA1}.zip
 
 
 workflows:
