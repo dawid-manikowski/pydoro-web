@@ -3,9 +3,9 @@ provider "aws" {
 }
 
 resource "aws_instance" "pydoro_server" {
-  instance_type = "t3.micro"
-  ami           = "ami-e2526d09"
-  user_data = <<EOF
+  instance_type        = "t3.micro"
+  ami                  = "ami-e2526d09"
+  user_data            = <<EOF
 #!/usr/bin/env bash
 mkdir -p /srv/pydoro
 aws s3 cp s3://pydoro-artifacts/backend/${var.components_versions.backend_version}.zip /srv/pydoro/dist.zip
@@ -14,6 +14,10 @@ unzip dist.zip
 pip3 install -r requirements.txt
 python3 main.py
 EOF
+  iam_instance_profile = aws_iam_instance_profile.ec2_role_profile.id
+  credit_specification {
+    cpu_credits = "default"
+  }
 }
 
 resource "aws_s3_bucket" "artifacts" {
