@@ -11,6 +11,7 @@ mkdir -p /srv/pydoro
 aws s3 cp s3://pydoro-artifacts/backend/${var.components_versions.backend_version}.zip /srv/pydoro/dist.zip
 cd /srv/pydoro/
 unzip dist.zip
+yum install -y python3
 pip3 install -r requirements.txt
 python3 main.py
 EOF
