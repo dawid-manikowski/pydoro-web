@@ -16,7 +16,7 @@ python3 main.py
 EOF
   iam_instance_profile = aws_iam_instance_profile.ec2_role_profile.id
   credit_specification {
-    cpu_credits = "default"
+    cpu_credits = "standard"
   }
 }
 
