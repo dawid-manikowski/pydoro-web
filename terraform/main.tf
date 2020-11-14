@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "pydoro_server" {
   instance_type = "t3.micro"
-  ami           = "ami-244c7a39"
+  ami           = "ami-e2526d09"
   user_data = <<EOF
 #!/usr/bin/env bash
 mkdir -p /srv/pydoro
