@@ -10,7 +10,7 @@ def app_status():
 
 
 def main():
-    app.run()
+    app.run(host='0.0.0.0', port=80)
 
 
 if __name__ == "__main__":
