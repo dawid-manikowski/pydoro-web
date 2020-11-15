@@ -60,6 +60,7 @@ jobs:
           command: |
             git config user.email "circleci@makeitright.ai"
             git config user.name "Circle CI"
+            git add ./terraform/app-version.auto.tfvars.json
             git commit -m 'Update backend version [skip ci]'
             git push origin master
           name: "Commit & push manifest changes"
