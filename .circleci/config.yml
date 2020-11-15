@@ -45,6 +45,24 @@ jobs:
       - aws-s3/copy:
           from: /tmp/workspace/dist.zip
           to: s3://pydoro-artifacts/backend/${CIRCLE_SHA1}.zip
+  deploy_dev:
+    docker:
+      - image: 'cimg/python:3.8'
+    steps:
+      - checkout
+      - run:
+          command: python3 ./scripts/update_component.py
+          name: Update component version
+          environment:
+            APP_COMPONENT: backend
+            APP_VERSION: ${CIRCLE_SHA1}
+      - run:
+          command: |
+            git config user.email "circleci@makeitright.ai"
+            git config user.name "Circle CI"
+            git commit -m 'Update backend version [skip ci]'
+            git push origin master
+          name: "Commit & push manifest changes"
 
 
 workflows:
