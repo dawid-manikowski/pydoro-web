@@ -77,3 +77,10 @@ workflows:
       - upload:
           requires:
             - build
+      - deploy_dev:
+          requires:
+            - upload
+      - wait_for_deployment:
+          type: approval
+          requires:
+            - deploy_dev
